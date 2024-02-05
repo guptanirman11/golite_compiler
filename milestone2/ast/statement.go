@@ -1,4 +1,5 @@
 package ast
 
-type Statement struct {
+type Statement interface {
+	String() string
 }

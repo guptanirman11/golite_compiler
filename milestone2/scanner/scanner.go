@@ -1,7 +1,7 @@
 package scanner
 
 import (
-	"milestone2/token"
+	"golite/token"
 )
 
 type Scanner struct {

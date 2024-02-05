@@ -2,8 +2,8 @@ package main
 
 import (
 	"fmt"
-	"milestone2/scanner"
-	"milestone2/token"
+	"golite/scanner"
+	"golite/token"
 	"os"
 )
 
