@@ -2,21 +2,17 @@ package ast
 
 import (
 	"bytes"
-	"go/token"
+	"golite/token"
 )
 
 type Program struct {
-	stmts []Statement
 	*token.Token
-	// never do []*Statement
-	// but always use bin = &BinaryExoression{....} as this a statement itself
+	stmts []Statement
 }
 
-func newProgram(stmts []Statement, token *token.Token) *Program {
-	// return &Program{nil}
-	return &Program{stmts, token}
+func NewProgram(stmts []Statement, token *token.Token) *Program {
+	return &Program{token, stmts}
 }
-
 func (p *Program) String() string {
 
 	var out bytes.Buffer
