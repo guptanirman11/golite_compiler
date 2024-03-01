@@ -2,6 +2,8 @@ package parser
 
 import (
 	"golite/lexer"
+
+	"github.com/antlr/antlr4/runtime/Go/antlr/v4"
 )
 
 type Parser interface {
@@ -11,8 +13,8 @@ type Parser interface {
 }
 
 type parserWrapper struct {
-	// *antlr.DefaultErrorListener // Embed default which ensures we fit the interface
-	// *BaseGoliteParserListener
+	*antlr.DefaultErrorListener // Embed default which ensures we fit the interface
+	*BaseGoliteParserListener
 	antlrParser *GoliteParser
 	lexer       lexer.Lexer
 	// errors      []*context.CompilerError
@@ -39,8 +41,11 @@ func NewParser(lexer lexer.Lexer) Parser {
 	// antlrParser.AddErrorListener(parser)
 	// parser.antlrParser = antlrParser
 	// return parser
+	parser := &parserWrapper{antlr.NewDefaultErrorListener(), &BaseGoliteParserListener{}, nil, lexer, nil}
 	antlrParser := NewGoliteParser(lexer.GetTokenStream())
-	parser := &parserWrapper{antlrParser, lexer}
+	parser.antlrParser = antlrParser
+	parser.lexer = lexer
+	// parser := &parserWrapper{antlrParser, lexer}
 	return parser
 }
 func (parser *parserWrapper) Parse() bool {
